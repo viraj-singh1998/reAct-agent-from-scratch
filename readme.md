@@ -1,5 +1,3 @@
-**** ARCoT: Agentic Retrieval Chain of Thought ****
-
 Instructions to run:
 
 1. create a new virtual environment:
