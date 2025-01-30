@@ -1,0 +1,5 @@
+python3 -m reasoning --verbose true --query "Which breed of dog is the biggest and what's its average weight?"
+
+python3 -m reasoning --verbose true --query "How is the NVIDIA stock doing today? Any recent developments that might affect it?"
+
+python3 -m reasoning --knowledge_base_dir /Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects --knowledge_base_desc "Contains CSV of each prospect's information and current deal status, the same information is also present in the prospects' name-wise text files" --verbose true --query "Do I have any upcoming prospect meetings? If I convert all of them, how much do I stand to make if my commission on the deal amount is 5%?"

@@ -1,0 +1,8 @@
+# Env variables
+.env
+
+# Bytecode
+__pycache__/
+
+# Metadata
+.DS_Store

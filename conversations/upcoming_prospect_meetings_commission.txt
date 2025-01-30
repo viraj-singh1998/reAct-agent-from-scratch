@@ -1,0 +1,75 @@
+SYSTEM:
+You are an assistant tasked with answering the user's queries as logically and factually as possible. You only have the capability to reason fantastically, but assume you are inept at looking up and proof-checking facts, you are also terrible at arithmetic, and so on; which is why you are provided with tools to do those tasks for you. Your job is 1) thinking about what information you need/action you need to perform 2) deciding on what tool to use to get that information/perform that action, and 3) making observations on the tool's output. For any information/action, you will rely on the tools provided to you, NEVER on your intrinsic knowledge. You reason out user queries in the following cycle of steps (till you reach the answer):
+Thought: Thought about what information you need to gather and what Action (tool use) must be performed to gather it.
+Action: <tool_name>: <tool_input>
+ The Action step is where you stop generating and let the tool run the action with the input you have provided. The tool is going to provide you with relevant information.
+Observation: Your observations based on the tool's output. Given your observations and all the steps so far, you either arrive at the Answer, or continue the cycle of Thought. At the end of the loop, you must always output an Answer, formatted in this way: Answer: <final answer here>
+Each turn of the conversation MUST ALWAYS be prefixed with EXACTLY ONE of the keywords: Thought, Action, Observation or Answer, whichever applicable.
+You must always pick a tool from those provided for each Action step. Each time you generate an Action step, you have to stop your response generation to let the control flow to the tool.
+Observation: This step comes only after the tool has returned an output. You observe the result returned by the tool. PS- The observation must be a direct result from the tool call, not a result of your generation. If you're given tools to look up the web, wikipedia, etc., always use them to look up facts, never rely on your intrinsic factual knowledge.
+In this step-wise cycle, break the problem into multiple sub-problems, use the appropriate tool to solve each sub-problem and continue till you arrive at the final answer.
+Remember, an Action of using a tool must be generated in the format: Action: <tool_name>: <tool_input> 
+Use Action to run one of the tools available to you based on the user's question, previous thoughts, actions and observations.
+Observation will be the result returned by the tool call.
+
+Your available tools are:
+tool_name: calculate
+tool_function: Computes basic arithmetic calculations using python's eval() function
+
+tool_name: get_webpage_info
+tool_function: Gets a summary of the text on the webpage, along with any useful links relevant search_term, call this tool with following input format: get_webpage_info: <url>, <search_term>
+
+tool_name: google_search
+tool_function: Google Search. Returns the title, url, page content and links for the top result from Google search. Good for general internet search.
+
+tool_name: knowledge_base_lookup
+tool_function: Returns most similar chunks of documents from user given knowledge base Description of knowledge base: Contains CSV of each prospect's information and current deal status, the same information is also present in the prospects' name-wise text files
+
+tool_name: python_repl
+tool_function: Runs the provided python code in a python REPL
+
+tool_name: wikipedia_search
+tool_function: Wikipedia Search. Searches wikipedia and returns a summary. Use this to get summaries of popular topics. Great at getting specific topic wise information, and if used, input query to this tool should be as specific as possible.
+
+
+VERY IMPORTANT - ALWAYS use the given tools, NEVER your intrinsic knowledge. Current date and time in DD-MM-YYYY::HH:MM format: 29-01-2025::02:59:00
+
+
+USER:
+Do I have any upcoming prospect meetings? If I convert all of them, how much do I stand to make if my commission on the deal amount is 5%?
+
+
+ASSISTANT:
+Thought: I need to find out if there are upcoming prospect meetings and their associated deal amounts, so I can calculate potential earnings based on a 5% commission. I will use the knowledge_base_lookup tool to gather information about the upcoming prospect meetings and their deal amounts. 
+
+Action: knowledge_base_lookup: upcoming prospect meetings and deal amounts. 
+
+
+
+
+ASSISTANT:
+[Document(metadata={'row_index': 4, 'source_file': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/sales_prospects.csv'}, page_content='{"Prospect Name":"Robert Brown","Company":"NextGen Inc.","Current Stage":"Closed Won","Prospective Deal Amount ($)":100000,"Next Meeting":"","Contact Email":"robert.brown@nextgen.com","Phone Number":"555-3456","Last Contacted":"2025-01-10","Notes":"Happy with current offerings"}'), Document(metadata={'row_index': 2, 'source_file': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/sales_prospects.csv'}, page_content='{"Prospect Name":"Mike Johnson","Company":"FutureWorks","Current Stage":"Proposal Sent","Prospective Deal Amount ($)":75000,"Next Meeting":"2025-02-15","Contact Email":"mike.johnson@futureworks.com","Phone Number":"555-8765","Last Contacted":"2025-01-18","Notes":"Requested detailed proposal"}'), Document(metadata={'source': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/individual_infos/John_Doe.txt'}, page_content='John Doe from TechCorp is currently in the Initial Contact stage, with a prospective deal amount of $50,000. The next meeting is scheduled for February 1, 2025. John can be reached at john.doe@techcorp.com or 555-1234. He was last contacted on January 20, 2025, and is interested in a product demo.'), Document(metadata={'source': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/individual_infos/Mike_Johnson.txt'}, page_content='Mike Johnson from FutureWorks is in the Proposal Sent stage, with a prospective deal amount of $75,000. The next meeting is scheduled for February 15, 2025. Mike can be reached at mike.johnson@futureworks.com or 555-8765, and he was last contacted on January 18, 2025. He has requested a detailed proposal.'), Document(metadata={'row_index': 1, 'source_file': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/sales_prospects.csv'}, page_content='{"Prospect Name":"Jane Smith","Company":"InnovateX","Current Stage":"Negotiation","Prospective Deal Amount ($)":120000,"Next Meeting":"","Contact Email":"jane.smith@innovatex.com","Phone Number":"555-5678","Last Contacted":"2025-01-25","Notes":"Requires additional features"}'), Document(metadata={'row_index': 3, 'source_file': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/sales_prospects.csv'}, page_content='{"Prospect Name":"Emily Davis","Company":"AlphaSolutions","Current Stage":"Qualified","Prospective Deal Amount ($)":30000,"Next Meeting":"2025-02-10","Contact Email":"emily.davis@alphasolutions.com","Phone Number":"555-4321","Last Contacted":"2025-01-22","Notes":"Small business, tight budget"}'), Document(metadata={'row_index': 0, 'source_file': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/sales_prospects.csv'}, page_content='{"Prospect Name":"John Doe","Company":"TechCorp","Current Stage":"Initial Contact","Prospective Deal Amount ($)":50000,"Next Meeting":"2025-02-01","Contact Email":"john.doe@techcorp.com","Phone Number":"555-1234","Last Contacted":"2025-01-20","Notes":"Interested in product demo"}'), Document(metadata={'source': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/individual_infos/Robert_Brown.txt'}, page_content='Robert Brown from NextGen Inc. has successfully closed the deal, with a deal amount of $100,000. There is no next meeting scheduled. Robert can be contacted at robert.brown@nextgen.com or 555-3456, and he was last contacted on January 10, 2025. He is happy with the current offerings.'), Document(metadata={'source': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/individual_infos/Jane_Smith.txt'}, page_content='Jane Smith from InnovateX is in the Negotiation stage, with a prospective deal amount of $120,000. There is no next meeting scheduled at the moment. Jane can be contacted at jane.smith@innovatex.com or 555-5678, and the last contact was on January 25, 2025. She requires additional features for the product.'), Document(metadata={'source': '/Users/viraj/Desktop/dev_stuff/ARCoT/data/sales_prospects/individual_infos/Emily_Davis.txt'}, page_content='Emily Davis from AlphaSolutions is in the Qualified stage, with a prospective deal amount of $30,000. The next meeting is scheduled for February 10, 2025. Emily can be contacted at emily.davis@alphasolutions.com or 555-4321, and the last contact was on January 22, 2025. She mentioned that her company is a small business with a tight budget.')]
+
+
+ASSISTANT:
+Observation: The upcoming prospect meetings and their deal amounts are as follows:
+
+1. **John Doe (TechCorp)**: $50,000, next meeting on February 1, 2025.
+2. **Emily Davis (AlphaSolutions)**: $30,000, next meeting on February 10, 2025.
+3. **Mike Johnson (FutureWorks)**: $75,000, next meeting on February 15, 2025.
+
+To calculate the potential earnings if all of these deals are converted, I need to sum the deal amounts and then calculate 5% of the total.
+
+Thought: I will calculate the total deal amount from these three prospects and then determine the commission based on the 5% rate. 
+
+Action: calculate: (50000 + 30000 + 75000) * 0.05 
+
+
+ASSISTANT:
+7750.0
+
+
+ASSISTANT:
+Observation: The total commission amount from converting all upcoming prospect meetings (John Doe, Emily Davis, and Mike Johnson) at a 5% commission rate would be $7,750. 
+
+Answer: You have upcoming prospect meetings, and if you convert all of them, you stand to make $7,750 in commission.
